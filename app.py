@@ -60,7 +60,7 @@ if __name__ == "__main__":
     #     st.subheader("this is the chart dashboard logic")
     #
 if Options == "Currency_Pairs":
-    st.subheader("twitter dashboard logic")
+    st.subheader("Currency_Pairs logic")
 
 #=============================The Beginning=========================================================================================
 
