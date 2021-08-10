@@ -22,7 +22,7 @@ st.sidebar.title("Select Your Trading Market")
 def main():
     st.title("Pocket Option Trade Analyzer")
     st.markdown(""" This app is meant to analyze the markets with strategies that can be plotted and ranked on compliance.  
-    * **[PocketOption](https://pocketoption.com/en)
+    * **[PocketOption](https://pocketoption.com/en/cabinet/demo-high-low/?)
     * **A account with your broker is required if you are making trades
     No advise for trading is done on this site, but for educational and coding example purposes.""")
 
