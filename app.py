@@ -1,15 +1,15 @@
 import streamlit as st
 # To make things easier later, we're also importing numpy and pandas for
 # working with sample data.
-import numpy as np
+#import numpy as np
 import pandas as pd
-import base64 # So you can download a csv file
+#import base64 # So you can download a csv file
 # import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly
-import psycopg2
-import requests
-import tweepy   #   https://docs.tweepy.org/en/stable/auth_tutorial.html
+#import seaborn as sns
+#import plotly
+#import psycopg2
+#import requests
+#import tweepy   #   https://docs.tweepy.org/en/stable/auth_tutorial.html
 #import config
 
 # Your imports goes below
