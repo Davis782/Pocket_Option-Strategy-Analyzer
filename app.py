@@ -123,7 +123,7 @@ if Options == "Currency_Pairs":
         pair_list = pd.DataFrame(pair_list)
     return (pair_list)
 
-        pair_list = load_data()
+    pair_list = load_data()
     #st.dataframe(pair_list)
     st.dataframe(pair_list)
 
