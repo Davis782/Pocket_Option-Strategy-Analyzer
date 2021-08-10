@@ -124,7 +124,7 @@ def load_data():
     return (pair_list)
     pair_list = load_data()
 
-st.dataframe(pair_list)
+    st.dataframe(pair_list)
 #====================================The End================================================================================
 
     # if Options == "Stocks":
