@@ -125,7 +125,7 @@ if Options == "Currency_Pairs":
 
         pair_list = load_data()
     #st.dataframe(pair_list)
-    st.dataframe()
+    st.dataframe(pair_list)
 
 #====================================The End================================================================================
 
