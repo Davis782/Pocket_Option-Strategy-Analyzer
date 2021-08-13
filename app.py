@@ -1,139 +1,82 @@
 import streamlit as st
-# To make things easier later, we're also importing numpy and pandas for
-# working with sample data.
-import numpy as np
 import pandas as pd
-#import base64 # So you can download a csv file
-#import matplotlib.pyplot as plt
-#import seaborn as sns
-#import plotly
-#import psycopg2
-#import requests
-#import tweepy   #   https://docs.tweepy.org/en/stable/auth_tutorial.html
-#import config
+import base64
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import yfinance as yf
 
-# Your imports goes below
+st.title('S&P 500 App')
 
-markets = ["Crypto","Currency_Pairs","Stocks","Commodities"]
-strategies = ["RSI", "TSI", "SO", "CONSOLODATION", "BREAKOUT", "SCHAFF", "GOLDEN_CROSS"]
+st.markdown("""
+This app retrieves the list of the **S&P 500** (from Wikipedia) and its corresponding **stock closing price** (year-to-date)!
+* **Python libraries:** base64, pandas, streamlit, numpy, matplotlib, seaborn
+* **Data source:** [Wikipedia](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies).
+""")
 
-st.sidebar.title("Select Your Trading Market")
+st.sidebar.header('User Input Features')
 
-def main():
-    st.title("Pocket Option Trade Analyzer")
-    st.markdown(""" This app is meant to analyze the markets with strategies that can be plotted and ranked on compliance.  
-    * **[PocketOption](https://pocketoption.com/en/cabinet/demo-high-low/?)
-    * **A account with your broker is required if you are making trades
-    No advise for trading is done on this site, but for educational and coding example purposes.""")
-
-#    st.sidebar.text_input("Select Your Trading Market")
-#    st.sidebar.selectbox("Select Your Trading Market", list(markets))
-#    st.sidebar.multiselect("Select Your Trading Market", list(markets))
-
-
-
-
-
-    st.sidebar.header("Select Your Trading Strategy")
-    #    st.sidebar.text_input("Select Your Strategy")
-    st.sidebar.multiselect("Select Your Trading Strategy", list(strategies), default=list(strategies))
-
-
+# Web scraping of S&P 500 data
 #
-#
-# # Your code goes below
-#
-#
+@st.cache
+def load_data():
+    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+    html = pd.read_html(url, header = 0)
+    df = html[0]
+    return df
 
-Options = st.sidebar.selectbox("Select Your Trading Market", list(markets))
+df = load_data()
+sector = df.groupby('GICS Sector')
 
+# Sidebar - Sector selection
+sorted_sector_unique = sorted( df['GICS Sector'].unique() )
+selected_sector = st.sidebar.multiselect('Sector', sorted_sector_unique, sorted_sector_unique)
 
-if __name__ == "__main__":
-    main()
+# Filtering data
+df_selected_sector = df[ (df['GICS Sector'].isin(selected_sector)) ]
 
+st.header('Display Companies in Selected Sector')
+st.write('Data Dimension: ' + str(df_selected_sector.shape[0]) + ' rows and ' + str(df_selected_sector.shape[1]) + ' columns.')
+st.dataframe(df_selected_sector)
 
-    st.header("Display of Market Data in Table form")
+# Download S&P500 data
+# https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
+def filedownload(df):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
+    href = f'<a href="data:file/csv;base64,{b64}" download="SP500.csv">Download CSV File</a>'
+    return href
 
-    st.header(Options)
-    #
-    # if Options == "Crypto":
-    #     st.subheader("this is the chart dashboard logic")
-    #
-if Options == "Currency_Pairs":
-    st.subheader("Currency_Pairs logic")
+st.markdown(filedownload(df_selected_sector), unsafe_allow_html=True)
 
-#=============================The Beginning=========================================================================================
+# https://pypi.org/project/yfinance/
 
-    @st.cache
-    def load_data():
-        INCREMENTS=[{
-                '1m': 1,
-                '2m': 2,
-                '5m': 5,
-                '15m': 15,
-                '30m': 3,
-                '60m': 60,
-                '90m': 90,
-                '1h': 1,
-                '1d': 1,
-                #    '5d ': 5,
-                #    '1wk': 1,
-                #    '1mo': 1,
-                #    '3mo': 3
-                }]
+data = yf.download(
+        tickers = list(df_selected_sector[:10].Symbol),
+        period = "ytd",
+        interval = "1d",
+        group_by = 'ticker',
+        auto_adjust = True,
+        prepost = True,
+        threads = True,
+        proxy = None
+    )
 
-        CURRENCY = ["GBP", "JPY", "CAD", "USD", "EUR", "CHF", "NZD"]
+# Plot Closing Price of Query Symbol
+def price_plot(symbol):
+  df = pd.DataFrame(data[symbol].Close)
+  df['Date'] = df.index
+  plt.fill_between(df.Date, df.Close, color='skyblue', alpha=0.3)
+  plt.plot(df.Date, df.Close, color='skyblue', alpha=0.8)
+  plt.xticks(rotation=90)
+  plt.title(symbol, fontweight='bold')
+  plt.xlabel('Date', fontweight='bold')
+  plt.ylabel('Closing Price', fontweight='bold')
+  return st.pyplot()
 
-        start_date = datetime(2021, 7, 27)
-        end_date = datetime(2021, 8, 3)
+num_company = st.sidebar.slider('Number of Companies', 1, 5)
 
-        N = 1000000000
-
-        list_of_pairs = [(CURRENCY[p1] + "" + CURRENCY[p2] + "=X") for p1 in range(len(CURRENCY)) for p2 in
-                         range(p1 + 1, len(CURRENCY))]
-
-        list_of_pairs = pd.DataFrame(list_of_pairs)
-        pairs = list_of_pairs.replace('"', '')
-        pairs = pd.DataFrame(pairs)
-        pairs = pairs.rename(columns={0: "Names1"})
-        pairs = pairs["Names1"]
-
-        keys = pd.DataFrame.from_dict(INCREMENTS).keys()
-
-        pair_list = []
-        for p1 in pairs:
-            for p2 in keys:
-                p = f"{p1}_{p2}"
-                data2 = yf.download(p1, start=start_date, end=end_date, interval=p2)
-
-                # # Tickers list
-                # # We can add and delete any ticker from the list to get desired ticker live data
-                # ticker_list = ["DJIA", "DOW", "LB", "EXPE", "PXD", "MCHP", "CRM", "JEC", "NRG", "HFC", "NOW"]
-                # today = date.today()
-
-                df2 = pd.DataFrame(data2, columns=['DateTime', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
-                df2['DateTime'] = pd.to_datetime(df2['DateTime'], unit='m')
-                filename = ("data/{}_{}.csv").format(p1, p2)
-                df2.to_csv(filename)
-                #       plot2_("{}{}").format(p1,p2) = mpf.plot(data2,type='candle',mav=(20, 50, 200),volume=True,show_nontrading=True, warn_too_much_data=N)
-
-                if p not in pairs:
-                    pair_list.append(p)
-
-        pair_list = pd.DataFrame(pair_list)
-        return (pair_list)
-
-    pair_list = load_data()
-    #st.dataframe(pair_list)
-    st.dataframe(pair_list)
-
-#====================================The End================================================================================
-
-    # if Options == "Stocks":
-    #     st.subheader("this is the chart dashboard logic")
-    #
-    # if Options == "Commodities":
-    #     st.subheader("this is the chart dashboard logic")
-    #
-    # if Options == "Chart":
-    #     pass
+if st.button('Show Plots'):
+    st.header('Stock Closing Price')
+    for i in list(df_selected_sector.Symbol)[:num_company]:
+        price_plot(i)
