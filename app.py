@@ -33,17 +33,25 @@ st.sidebar.header('User Input Features')
 # Web scraping of S&P 500 data
 #
 @st.cache
+
 def load_data1():
-    url = '/Users/Owner/PycharmProjects/Streamlit_Projects/Forex_Streamlit_App/Practice_Code/Data_Science_Apps/df1.csv'
-    df1 = pd.read_csv(url, header = 0)
+
+    googleSheetId = '1dhRTbzxHb-TFEKTE9FSShTOM0c4pKEnkitCxpoCUKIo'
+    worksheetName = 'Pocket-Option-df'
+    URL = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(googleSheetId, worksheetName)
+    #
+    df1 = pd.read_csv(URL, header = 0)
     return df1
 
+
+# jj
 def load_data2():
-    url = '/Users/Owner/PycharmProjects/Streamlit_Projects/Forex_Streamlit_App/Practice_Code/Data_Science_Apps/df2.csv'
-    df2 = pd.read_csv(url, header = 0)
+    googleSheetId = '1dhRTbzxHb-TFEKTE9FSShTOM0c4pKEnkitCxpoCUKIo'
+    worksheetName = 'Pocket-Option-df'
+    URL = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(googleSheetId, worksheetName)
+
+    df2 = pd.read_csv(URL, header = 0)
     return df2
-
-
 
 
 df1 = load_data1()
