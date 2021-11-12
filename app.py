@@ -26,21 +26,3 @@ scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/au
          "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
 
 
-# credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
-credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes = scope)
-# client = gspread.authorize(credentials)
-client = Client(scope=scope,creds=credentials)
-spreadsheetname = 'Pocket-Option-df'
-spread = Spread(spreadsheetname, client = client)
-#============================================================================
-
-st.title('Welcome to the Pocket Options Trading Analyzer')
-
-st.markdown("""
-This app retrieves the Currency Pair data and runs it against numerous Strategies.  The results of passing the Strategies shows up in the tables below!
-* **Python libraries:** base64, pandas, streamlit, numpy, matplotlib, seaborn
-* **Data source:** [Pocket Option](https://PocketOption.com).
-* **Suggestions:** Right Click above link and place in a new window, Open up a few Trading Currencies of interest and setup for Trading
-""")
-
-st.sidebar.header('User Input Features')
