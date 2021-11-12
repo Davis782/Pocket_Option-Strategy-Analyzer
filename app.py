@@ -51,7 +51,7 @@ st.sidebar.header('User Input Features')
 @st.cache
 
 #Let's Check if the connectioin is established ?
-st.write(spread.url)
+#st.write(spread.url)
 
 # Call our spreadsheet
 sh =client.open(spreadsheetname)
