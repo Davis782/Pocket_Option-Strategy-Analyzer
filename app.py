@@ -26,3 +26,13 @@ scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/au
          "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
 
 
+# credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes = scope)
+# client = gspread.authorize(credentials)
+client = Client(scope=scope,creds=credentials)
+spreadsheetname = 'Pocket-Option-df'
+spread = Spread(spreadsheetname, client = client)
+#============================================================================
+
+st.title('Welcome to the Pocket Options Trading Analyzer')
+
