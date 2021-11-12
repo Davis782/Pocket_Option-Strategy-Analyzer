@@ -27,12 +27,11 @@ scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/au
 
 
 # credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"], scopes = scope)
+credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes = scope)
 # client = gspread.authorize(credentials)
 client = Client(scope=scope,creds=credentials)
 spreadsheetname = 'Pocket-Option-df'
-spread = Spread(spreadsheetname,client = client)
+spread = Spread(spreadsheetname, client = client)
 #============================================================================
 
 st.title('Welcome to the Pocket Options Trading Analyzer')
@@ -45,4 +44,3 @@ This app retrieves the Currency Pair data and runs it against numerous Strategie
 """)
 
 st.sidebar.header('User Input Features')
-
