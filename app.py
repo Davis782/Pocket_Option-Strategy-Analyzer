@@ -46,16 +46,3 @@ This app retrieves the Currency Pair data and runs it against numerous Strategie
 
 st.sidebar.header('User Input Features')
 
-# Web scraping of S&P 500 data
-#
-@st.cache
-
-#Let's Check if the connectioin is established ?
-#st.write(spread.url)
-
-# Call our spreadsheet
-sh = client.open(spreadsheetname)
-worksheet_list = sh.worksheets()
-st.write(worksheet_list)
-
-
