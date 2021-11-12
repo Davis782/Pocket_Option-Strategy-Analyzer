@@ -8,16 +8,32 @@ import numpy as np
 import yfinance as yf
 
 
-# import os, ssl
+import os, ssl
 #
 # if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
 #         getattr(ssl, '_create_unverified_context', None)):
-#     ssl._create_default_https_context = ssl._create_unverified_context
+ssl._create_default_https_context = ssl._create_unverified_context
 #
 # #  http://localhost:5997
 
 # Use the full page instead of a narrow central column
 st.set_page_config(layout="wide")
+
+
+#===========================Update=================================================
+# Create a Google Authentication connection object
+scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
+         "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+
+
+# credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"], scopes = scope)
+# client = gspread.authorize(credentials)
+client = Client(scope=scope,creds=credentials)
+spreadsheetname = 'Pocket-Option-df'
+spread = Spread(spreadsheetname,client = client)
+#============================================================================
 
 st.title('Welcome to the Pocket Options Trading Analyzer')
 
@@ -34,56 +50,73 @@ st.sidebar.header('User Input Features')
 #
 @st.cache
 
-def load_data1():
+#Let's Check if the connectioin is established ?
+st.write(spread.url)
 
-    googleSheetId = '1dhRTbzxHb-TFEKTE9FSShTOM0c4pKEnkitCxpoCUKIo'
-    worksheetName = 'Pocket-Option-df'
-    URL = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(googleSheetId, worksheetName)
-    #
-    df1 = pd.read_csv(URL, header = 0)
-    return df1
+# Call our spreadsheet
+sh =client.open(spreadsheetname)
+worksheet_list = sh.worksheets()
+st.write(worksheet_list)
 
+
+# Functions
+
+# Get our worksheets names
+def worksheet_names():
+    sheet_names = []
+    for sheet in worksheet_list:
+        sheet_names.append(sheet.title)
+    return sheet_names
+
+# Get the sheet as dataframe
+def load_the_spreadsheet(spreadsheetname):
+    worksheet = sh.worksheet(spreadsheetname)
+    df = DataFrame(worksheet.get_all_records())
+    return df
+
+# Update to Sheet
+def update_the_spreadsheet(spreadsheetname,dataframe):
+    col = ['Curreny Data','Time Info']
+    spread.df_to_sheet(dataframe[col],sheet=spreadsheetname,index=false)
+    st.sidebar.info("Updated to GoogleSheet")
+
+
+    # Check whether the sheets exists and throw the sheets to the users ?
+
+
+    # Throw the Currenincies to the Users so that they can access ?
+
+    # Load data from the Worksheets
+what_sheets = worksheet_names()
+#st.sidebar.write(what_sheets)
+ws_choice = st.sidebar.radio('Available worksheets', what_sheets)
+
+    # Create a Select box
+df = load_the_spreadsheet(ws_choice)
+
+    # Show the availability as selection
+select_Currency = st.sidebar.selectbox('Currency', list(df['Market_Name']))
+
+
+# def load_data1(df):
+#     # url = '/Users/Owner/PycharmProjects/Streamlit_Projects/Forex_Streamlit_App/Practice_Code/Data_Science_Apps/df1.csv'
+#     url = spread.url
+#     df = pd.read_csv(url, header = 0)
+#     return df
+# load_data1(df)
 
 # jj
-def load_data2():
-    googleSheetId = '1dhRTbzxHb-TFEKTE9FSShTOM0c4pKEnkitCxpoCUKIo'
-    worksheetName = 'Pocket-Option-df'
-    URL = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format(googleSheetId, worksheetName)
+def load_data2(df):
+    load_the_spreadsheet(spreadsheetname)
+    # url = '/Users/Owner/PycharmProjects/Streamlit_Projects/Forex_Streamlit_App/Practice_Code/Data_Science_Apps/df2.csv'
+    # # url = spread.url
+    # df = pd.read_csv(url, header = 0)
+    return df
 
-    df2 = pd.read_csv(URL, header = 0)
-    return df2
+print(load_data2(df))
 
-
-df1 = load_data1()
-df2 = load_data2()
-
-
-df1.reset_index()
-df2.reset_index()
-
-
-sector1 = df1.groupby('Market_Name')
-sector2 = df2.groupby('Market_Name')
-
-
-# Sidebar - Sector selection
-sorted_sector_unique1 = sorted( df1['Market_Name'].unique() )
-selected_sector1 = st.sidebar.multiselect('Market_Name', sorted_sector_unique1, sorted_sector_unique1, key = "test1")
-
-sorted_sector_unique2 = sorted( df2['Market_Name'].unique() )
-selected_sector2 = st.sidebar.multiselect('Market_Name', sorted_sector_unique2, sorted_sector_unique2, key = "test2")
-
-# Filtering data
-df_selected_sector1 = df1[ (df1['Market_Name'].isin(selected_sector1)) ]
-df_selected_sector2 = df2[ (df2['Market_Name'].isin(selected_sector2)) ]
+st.write(load_data2(df))
 
 
 
-st.header('Display Currencies in Selected Sector Going Down')
-st.write('Data Dimension: ' + str(df_selected_sector1.shape[0]) + ' rows and ' + str(df_selected_sector1.shape[1]) + ' columns.')
-st.dataframe(df_selected_sector1)
 
-
-st.header('Display Currencies in Selected Sector Going Up')
-st.write('Data Dimension: ' + str(df_selected_sector2.shape[0]) + ' rows and ' + str(df_selected_sector2.shape[1]) + ' columns.')
-st.dataframe(df_selected_sector2)
