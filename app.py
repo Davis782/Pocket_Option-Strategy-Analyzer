@@ -1,12 +1,11 @@
 
-import streamlit as st
-import pandas as pd
-import base64
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-import yfinance as yf
 
+import streamlit as st
+from pandas import DataFrame
+import pandas as pd
+#for the spreadsheet information
+from gspread_pandas import Spread,Client
+from google.oauth2 import service_account
 
 import os, ssl
 #
