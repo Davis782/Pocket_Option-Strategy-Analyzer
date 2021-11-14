@@ -6,5 +6,4 @@ seaborn
 numpy
 yfinance
 service_account
-google.oauth2
 gsheetsdb
