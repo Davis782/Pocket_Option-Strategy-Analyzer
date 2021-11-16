@@ -25,7 +25,7 @@ SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
 SAMPLE_SPREADSHEET_ID = '154DTvN5mNOTH_bexjYDZMZcSuprpX-gBZk_rnkm-8'
 
-service = build('sheets', 'v4‘, credentials=creds)
+service = build('sheets', 'v4', credentials=creds)
 
 # Call the Sheets API
 sheet = service.spreadsheets()
