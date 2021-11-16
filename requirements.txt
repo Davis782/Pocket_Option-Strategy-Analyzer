@@ -1,5 +1,5 @@
 streamlit
 pandas
-oauth2client<4.0.0
-build
-service_account
+google-api-python-client 
+google-auth-httplib2 
+google-auth-oauthlib
