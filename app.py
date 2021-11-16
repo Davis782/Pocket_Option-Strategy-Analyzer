@@ -28,7 +28,25 @@ SAMPLE_SPREADSHEET_ID = '154DTvN5mNOTH_bexjYDZMZcSuprpX-gBZk_rnkm-8'
 
 service = build('sheets', 'v4', credentials=creds)
 
+# Call the Sheets API
+sheet = service.spreadsheets()
+result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+range="sales!A1:G16").execute()
 
+values = result.get('values', [])
+aoa = [[ "1/1/2020",4000],["4/4/2020",3000],["7/12/2020",7000]]
+
+request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+range= "Sheet2!B2", valueInputOption="USER_ENTERED", body={ "values":aoa}).execute()
+print(request)
+
+if not values:
+	print('No data found.')
+else:
+	print('Name, Major:')
+	for row in values:
+		#Print columns A and E, which correspond to indices 0 and 4.
+		print('%s, %s'  (row[0], row[4]))
 
 @st.cache(allow_output_mutation=True)
 # @st.cache(ttl=600)
