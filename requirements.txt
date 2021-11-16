@@ -2,4 +2,4 @@ streamlit
 pandas
 build
 service_account
-
+oauth2client<4.0.0
