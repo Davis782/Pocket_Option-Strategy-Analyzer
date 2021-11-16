@@ -6,3 +6,5 @@ seaborn
 numpy
 yfinance
 gsheetsdb
+service_account
+build
