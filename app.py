@@ -21,7 +21,7 @@ from gsheetsdb import connect # Create a connection object.
 # SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 creds = None
-creds =  service_account.Credentials.from_service_account_info( st.secrets["gcp_service_account"], scopes=[ "https://www.googleapis.com/auth/spreadsheets", ], )
+creds =  service_account.Credentials.from_service_account_info( st.secrets["gcp_service_account"], scopes=["https://www.googleapis.com/auth/spreadsheets"] )
 conn = connect(credentials=creds)
 
 # The ID spreadsheet.
