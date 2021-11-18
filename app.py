@@ -38,6 +38,7 @@ result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
 
 values = result.get('values', [])
 print(values, 'These are the values')
+st.write(values)
 
 
 aoa = [[ "1/1/2020",4000],["4/4/2020",3000],["7/12/2020",7000]]
