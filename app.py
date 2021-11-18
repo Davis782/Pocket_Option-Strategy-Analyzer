@@ -18,11 +18,14 @@ from gsheetsdb import connect # Create a connection object.
 
 # Create a Google Authentication connection object
 # SERVICE_ACCOUNT_FILE = 'keys.json'
-# SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
+         "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+
 
 creds = None
-creds =  service_account.Credentials.from_service_account_info( st.secrets["gcp_service_account"], scopes=["https://www.googleapis.com/auth/spreadsheets"] )
+creds =  service_account.Credentials.from_service_account_info( st.secrets["gcp_service_account"], scopes=scope )
 conn = connect(credentials=creds)
+
 
 # The ID spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1Ho6-7uRY3EuaPktr8a6uj9SshKyTaNNjI7uWg95nnfg'
