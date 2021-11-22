@@ -41,10 +41,10 @@ print(values, 'These are the values')
 st.write(values)
 
 
-aoa = [[ "1/1/2020",4000],["4/4/2020",3000],["7/12/2020",7000]]
+aoa = values 
 request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range= "Sheet3!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
-print(result, 'This is the result')
+                                range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
+st.write(request)
 
 #
 # if not values:
