@@ -28,7 +28,8 @@ conn = connect(credentials=creds)
 
 
 # The ID spreadsheet.
-SAMPLE_SPREADSHEET_ID = '1Ho6-7uRY3EuaPktr8a6uj9SshKyTaNNjI7uWg95nnfg'
+#SAMPLE_SPREADSHEET_ID = '1Ho6-7uRY3EuaPktr8a6uj9SshKyTaNNjI7uWg95nnfg'
+SAMPLE_SPREADSHEET_ID=st.secrets["SAMPLE_SPREADSHEET_ID"]
 service = build('sheets','v4',credentials=creds)
                 
 # Call the Sheets API
