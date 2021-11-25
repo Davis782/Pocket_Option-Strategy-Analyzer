@@ -34,14 +34,14 @@ service = build('sheets','v4',credentials=creds)
 
 # Call the Sheets API
 sheet = service.spreadsheets()
-result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+result1 = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                             range="Sheet3!A1:O22").execute()
 
-values = result.get('values', [])
+values1 = result1.get('values', [])
 #print(values1, 'These are the values')
 # st.write(values)
 
-df1 = pd.DataFrame.from_records(values)
+df1 = pd.DataFrame.from_records(values1)
 st.write(df1)
 
 
