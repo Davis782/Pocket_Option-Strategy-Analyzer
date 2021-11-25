@@ -45,17 +45,7 @@ st.write(df1)
 
 #==================================================================
 
-# Call the Sheets API
-sheet2 = service.spreadsheets()
-result2 = sheet2.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                            range="A worksheet6!A1:O22").execute()
 
-values2 = result2.get('values2', [])
-print(values2, 'These are the values')
-#st.write(values)
-
-df2 = pd.DataFrame.from_records(values2)
-st.write(df2)
 
 
 # aoa = values 
