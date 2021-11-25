@@ -38,16 +38,17 @@ result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
 
 values = result.get('values', [])
 print(values, 'These are the values')
-#st.write(values)
+st.write(values)
 
+df1 = pd.DataFrame.from_records(values)
+st.write(df1)
 
 aoa = values 
 request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
 #st.write(request)
 
-df1 = pd.DataFrame.from_records(aoa)
-st.write(df1)
+
 
 #
 # if not values:
