@@ -36,7 +36,7 @@ sheet1 = service.spreadsheets()
 result1 = sheet1.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                             range="Sheet3!A1:O22").execute()
 
-values1 = result.get('values1', [])
+values1 = result1.get('values1', [])
 print(values1, 'These are the values')
 #st.write(values)
 
@@ -50,7 +50,7 @@ sheet2 = service.spreadsheets()
 result2 = sheet2.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                             range="A worksheet6!A1:O22").execute()
 
-values2 = result.get('values2', [])
+values2 = result2.get('values2', [])
 print(values2, 'These are the values')
 #st.write(values)
 
