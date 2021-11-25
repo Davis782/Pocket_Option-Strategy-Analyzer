@@ -11,10 +11,10 @@ import streamlit as st
 import pandas as pd
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-from gsheetsdb import connect # Create a connection object.
+import gspread
+from gspread_dataframe import set_with_dataframe
+from pprint import pprint
 
-
-st.set_page_config(layout="wide")
 
 # Create a Google Authentication connection object
 # SERVICE_ACCOUNT_FILE = 'keys.json'
@@ -34,25 +34,20 @@ service = build('sheets','v4',credentials=creds)
 # Call the Sheets API
 sheet = service.spreadsheets()
 result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                            range="Sheet3!A1:O22").execute()
+                            range="Sheet1!A1:Z9999").execute()
 
-values1 = result.get('values1', [])
-#print(values1, 'These are the values')
-#st.write(values)
-
-df1 = pd.DataFrame.from_records(values1)
-st.write(df1)
-
-#==================================================================
-
-
+values = result.get('values', [])
+print(values, 'These are the values')
+st.write(values)
 
 
 # aoa = values 
 # request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-#                                 range="Sheet3!A1:O22", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
+#                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
 # st.write(request)
 
+df1 = pd.DataFrame.from_records(request)
+st.write(df1)
 
 
 #
