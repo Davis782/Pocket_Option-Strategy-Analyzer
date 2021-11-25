@@ -11,9 +11,9 @@ import streamlit as st
 import pandas as pd
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-from gsheetsdb import connect # Create a connection object.
-
-
+import gspread
+from gspread_dataframe import set_with_dataframe
+from pprint import pprint
 
 
 # Create a Google Authentication connection object
@@ -45,6 +45,10 @@ aoa = values
 request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
 st.write(request)
+
+df1 = pd.DataFrame.from_records(request)
+st.write(df1)
+
 
 #
 # if not values:
