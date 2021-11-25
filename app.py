@@ -37,7 +37,7 @@ result1 = sheet1.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                             range="Sheet3!A1:O22").execute()
 
 values1 = result1.get('values1', [])
-print(values1, 'These are the values')
+#print(values1, 'These are the values')
 #st.write(values)
 
 df1 = pd.DataFrame.from_records(values1)
