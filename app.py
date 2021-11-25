@@ -14,7 +14,7 @@ from google.oauth2 import service_account
 from gsheetsdb import connect # Create a connection object.
 
 
-
+st.set_page_config(layout="wide")
 
 # Create a Google Authentication connection object
 # SERVICE_ACCOUNT_FILE = 'keys.json'
