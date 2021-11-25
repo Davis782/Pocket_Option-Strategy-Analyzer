@@ -2,5 +2,6 @@ google-api-python-client
 google-auth-httplib2 
 google-auth-oauthlib
 gspread
-from gspread_dataframe import set_with_dataframe
-from pprint import pprint
+gspread_dataframe
+set_with_dataframe
+pprint
