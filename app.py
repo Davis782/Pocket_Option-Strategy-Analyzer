@@ -45,7 +45,7 @@ st.write(df1)
 
 aoa = values 
 request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
+                                range="Sheet3!A1:O22", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
 st.write(request)
 
 
