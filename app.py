@@ -30,3 +30,30 @@ conn = connect(credentials=creds)
 SAMPLE_SPREADSHEET_ID=st.secrets["SAMPLE_SPREADSHEET_ID"]["SAMPLE_SPREADSHEET_ID"]
 service = build('sheets','v4',credentials=creds)
                 
+# Call the Sheets API
+sheet = service.spreadsheets()
+result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                            range="Sheet1!A1:Z9999").execute()
+
+values = result.get('values', [])
+print(values, 'These are the values')
+st.write(values)
+
+
+# aoa = values 
+# request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+#                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
+# st.write(request)
+
+df1 = pd.DataFrame.from_records(values)
+st.write(df1)
+
+
+#
+# if not values:
+# 	print('No data found.')
+# else:
+# 	print('Name, Major:')
+# 	for row in values:
+# 		#Print columns A and E, which correspond to indices 0 and 4.
+# 		print('%s, %s',  (row[0], row[4]))
