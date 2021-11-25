@@ -46,7 +46,7 @@ request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
 #st.write(request)
 
-df1 = pd.DataFrame.from_records(values)
+df1 = pd.DataFrame.from_records(aoa)
 st.write(df1)
 
 #
