@@ -55,7 +55,7 @@ print(values2, 'These are the values')
 #st.write(values)
 
 df2 = pd.DataFrame.from_records(values2)
-st.write(df1)
+st.write(df2)
 
 
 # aoa = values 
