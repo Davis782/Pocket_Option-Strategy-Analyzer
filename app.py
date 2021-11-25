@@ -32,8 +32,8 @@ SAMPLE_SPREADSHEET_ID=st.secrets["SAMPLE_SPREADSHEET_ID"]["SAMPLE_SPREADSHEET_ID
 service = build('sheets','v4',credentials=creds)
                 
 # Call the Sheets API
-sheet1 = service.spreadsheets()
-result1 = sheet1.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+sheet = service.spreadsheets()
+result1 = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                             range="Sheet3!A1:O22").execute()
 
 values1 = result1.get('values1', [])
