@@ -37,11 +37,11 @@ sheet = service.spreadsheets()
 result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                             range="Sheet3!A1:O22").execute()
 
-values1 = result.get('values1', [])
+values = result.get('values1', [])
 #print(values1, 'These are the values')
 #st.write(values)
 
-df1 = pd.DataFrame.from_records(values1)
+df1 = pd.DataFrame.from_records(values)
 st.write(df1)
 
 
