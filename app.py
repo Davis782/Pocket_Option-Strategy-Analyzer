@@ -44,6 +44,19 @@ values1 = result1.get('values', [])
 df1 = pd.DataFrame.from_records(values1)
 st.write(df1)
 
+# Call the Sheets API
+sheet2 = service.spreadsheets()
+result2 = sheet2.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                            range="Sheet3!A1:O22").execute()
+
+values2 = result2.get('values', [])
+#print(values1, 'These are the values')
+# st.write(values)
+
+df2 = pd.DataFrame.from_records(values2)
+st.write(df2)
+
+
 
 # # Call the Sheets API
 # sheet = service.spreadsheets()
