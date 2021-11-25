@@ -49,7 +49,7 @@ st.write(df1)
 # Call the Sheets API
 sheet2 = service.spreadsheets()
 result2 = sheet2.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                            range="Sheet3!A1:O22").execute()
+                            range="A worksheet6!A1:O22").execute()
 
 values2 = result2.get('values', [])
 #print(values1, 'These are the values')
