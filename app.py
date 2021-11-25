@@ -11,9 +11,8 @@ import streamlit as st
 import pandas as pd
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-import gspread
-from gspread_dataframe import set_with_dataframe
-from pprint import pprint
+
+
 
 
 # Create a Google Authentication connection object
