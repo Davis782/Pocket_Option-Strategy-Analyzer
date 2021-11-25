@@ -54,7 +54,7 @@ values2 = result.get('values2', [])
 print(values2, 'These are the values')
 #st.write(values)
 
-df1 = pd.DataFrame.from_records(values2)
+df2 = pd.DataFrame.from_records(values2)
 st.write(df1)
 
 
