@@ -30,24 +30,38 @@ conn = connect(credentials=creds)
 # The ID spreadsheet.
 SAMPLE_SPREADSHEET_ID=st.secrets["SAMPLE_SPREADSHEET_ID"]["SAMPLE_SPREADSHEET_ID"]
 service = build('sheets','v4',credentials=creds)
-                
+
+
 # Call the Sheets API
 sheet = service.spreadsheets()
 result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                             range="Sheet3!A1:O22").execute()
 
-values = result.get('values', [])
-print(values, 'These are the values')
-st.write(values)
+values1 = result.get('values1', [])
+#print(values1, 'These are the values')
+#st.write(values)
 
-
-aoa = values 
-request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
-st.write(request)
-
-df1 = pd.DataFrame.from_records(request)
+df1 = pd.DataFrame.from_records(values1)
 st.write(df1)
+
+
+# # Call the Sheets API
+# sheet = service.spreadsheets()
+# result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+#                             range="Sheet3!A1:O22").execute()
+
+# values = result.get('values', [])
+# print(values, 'These are the values')
+# st.write(values)
+
+
+# aoa = values 
+# request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+#                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
+# st.write(request)
+
+# df1 = pd.DataFrame.from_records(request)
+# st.write(df1)
 
 
 #
