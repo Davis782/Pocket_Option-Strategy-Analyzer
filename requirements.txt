@@ -3,5 +3,4 @@ google-auth-httplib2
 google-auth-oauthlib
 gspread
 gspread_dataframe
-set_with_dataframe
-pprint
+
