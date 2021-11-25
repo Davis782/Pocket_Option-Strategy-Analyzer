@@ -12,6 +12,8 @@ import pandas as pd
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 import gspread
+from gspread_dataframe import set_with_dataframe
+from pprint import pprint
 
 
 # Create a Google Authentication connection object
@@ -32,19 +34,19 @@ service = build('sheets','v4',credentials=creds)
 # Call the Sheets API
 sheet = service.spreadsheets()
 result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                            range="Sheet3!A1:O22").execute()
+                            range="Sheet1!A1:Z9999").execute()
 
 values = result.get('values', [])
 print(values, 'These are the values')
 st.write(values)
 
 
-aoa = values 
-request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
-st.write(request)
+# aoa = values 
+# request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+#                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
+# st.write(request)
 
-df1 = pd.DataFrame.from_records(request)
+df1 = pd.DataFrame.from_records(values)
 st.write(df1)
 
 
