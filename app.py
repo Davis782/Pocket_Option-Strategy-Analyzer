@@ -43,6 +43,17 @@ values1 = result1.get('values', [])
 #print(values1, 'These are the values')
 # st.write(values)
 
+st.title('Welcome to the Pocket Options Trading Analyzer')
+
+st.markdown("""
+This app retrieves the Currency Pair data and runs it against numerous Strategies.  The results of passing the Strategies shows up in the tables below!
+* **Python libraries:** base64, pandas, streamlit, numpy, matplotlib, seaborn
+* **Data source:** [Pocket Option](https://PocketOption.com).
+* **Suggestions:** Right Click above link and place in a new window, Open up a few Trading Currencies of interest and setup for Trading
+""")
+
+st.sidebar.header('User Input Features')
+
 df1 = pd.DataFrame.from_records(values1)
 st.write(df1)
 
