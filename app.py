@@ -39,7 +39,7 @@ result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
 
 values = result.get('values', [])
 #print(values1, 'These are the values')
-st.write(values)
+# st.write(values)
 
 df1 = pd.DataFrame.from_records(values)
 st.write(df1)
