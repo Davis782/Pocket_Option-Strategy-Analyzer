@@ -38,7 +38,7 @@ result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
 
 values = result.get('values', [])
 print(values, 'These are the values')
-st.write(values)
+#st.write(values)
 
 
 aoa = values 
