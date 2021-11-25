@@ -46,6 +46,9 @@ request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
 st.write(request)
 
+df1 = pd.DataFrame.from_records(request)
+st.write(df1)
+
 #
 # if not values:
 # 	print('No data found.')
