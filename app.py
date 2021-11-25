@@ -43,10 +43,10 @@ print(values, 'These are the values')
 df1 = pd.DataFrame.from_records(values)
 st.write(df1)
 
-aoa = values 
-request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range="Sheet3!A1:O22", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
-st.write(request)
+# aoa = values 
+# request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+#                                 range="Sheet3!A1:O22", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
+# st.write(request)
 
 
 
