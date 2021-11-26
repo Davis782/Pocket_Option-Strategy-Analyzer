@@ -55,6 +55,7 @@ This app retrieves the Currency Pair data and runs it against numerous Strategie
 st.sidebar.header('User Input Features')
 
 df1 = pd.DataFrame.from_records(values1)
+st.header('Display Currencies in Selected Sector Going Up')
 st.write(df1)
 
 # Call the Sheets API
@@ -67,34 +68,8 @@ values2 = result2.get('values', [])
 # st.write(values)
 
 df2 = pd.DataFrame.from_records(values2)
+st.header('Display Currencies in Selected Sector Going Down')
 st.write(df2)
 
 
 
-# # Call the Sheets API
-# sheet = service.spreadsheets()
-# result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-#                             range="Sheet3!A1:O22").execute()
-
-# values = result.get('values', [])
-# print(values, 'These are the values')
-# st.write(values)
-
-
-# aoa = values 
-# request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-#                                 range= "Sheet4!B2", valueInputOption="USER_ENTERED", body={"values":aoa}).execute()
-# st.write(request)
-
-# df1 = pd.DataFrame.from_records(request)
-# st.write(df1)
-
-
-#
-# if not values:
-# 	print('No data found.')
-# else:
-# 	print('Name, Major:')
-# 	for row in values:
-# 		#Print columns A and E, which correspond to indices 0 and 4.
-# 		print('%s, %s',  (row[0], row[4]))
