@@ -34,14 +34,7 @@ SAMPLE_SPREADSHEET_ID=st.secrets["SAMPLE_SPREADSHEET_ID"]["SAMPLE_SPREADSHEET_ID
 service = build('sheets','v4',credentials=creds)
 
 
-# Call the Sheets API
-sheet = service.spreadsheets()
-result1 = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                            range="df1!A1:O22").execute()
 
-values1 = result1.get('values', [])
-#print(values1, 'These are the values')
-# st.write(values)
 
 st.title('Welcome to the Pocket Options Trading Analyzer')
 
@@ -53,6 +46,15 @@ This app retrieves the Currency Pair data and runs it against numerous Strategie
 """)
 
 st.sidebar.header('User Input Features')
+
+# Call the Sheets API
+sheet = service.spreadsheets()
+result1 = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                            range="df1!A1:O22").execute()
+
+values1 = result1.get('values', [])
+#print(values1, 'These are the values')
+# st.write(values)
 
 df1 = pd.DataFrame.from_records(values1)
 st.header('Display Currencies in Selected Sector Going Up')
