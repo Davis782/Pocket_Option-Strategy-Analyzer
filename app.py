@@ -78,6 +78,4 @@ def Pocket_Option():
 
 schedule.every(500).seconds.do(Pocket_Option)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+
