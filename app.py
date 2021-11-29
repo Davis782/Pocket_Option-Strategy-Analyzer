@@ -90,7 +90,7 @@ def Pocket_Option(x):
 # source_code_2 = HtmlFile.read()
 # components.html(source_code_2, height=700)
 
-for x in range(1000):
-  Pocket_Option(x)
-#   time.sleep(1)
+# for x in range(1000):
+#   Pocket_Option(x)
+# #   time.sleep(1)
 
