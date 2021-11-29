@@ -85,6 +85,11 @@ def Pocket_Option(x):
 #     time.sleep(1)
 
 
+HtmlFile = open(“<script src="https://cdn.logwork.com/widget/text.js"></script>
+<a href="https://logwork.com/current-time-in-kerrville-united-states-texas" class="clock-widget-text" data-timezone="America/Chicago" data-language="en">Kerrville, United States</a>”, ‘r’, encoding=‘utf-8’)
+source_code_2 = HtmlFile.read()
+components.html(source_code_2, height=700)
+
 for x in range(1000):
   Pocket_Option(x)
   time.sleep(1)
