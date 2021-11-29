@@ -47,7 +47,7 @@ This app retrieves the Currency Pair data and runs it against numerous Strategie
 
 st.sidebar.header('User Input Features')
 
-def Pocket_Option()
+def Pocket_Option():
 
     # Call the Sheets API
     sheet = service.spreadsheets()
