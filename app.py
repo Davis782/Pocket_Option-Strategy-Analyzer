@@ -87,5 +87,5 @@ def Pocket_Option():
 
 for x in range(1000):
   Pocket_Option()
-  time.sleep(25)
+  time.sleep(1)
 
