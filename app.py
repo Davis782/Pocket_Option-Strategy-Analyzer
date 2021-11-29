@@ -9,6 +9,8 @@
 
 import streamlit as st
 import pandas as pd
+import schedule
+import time
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from google.oauth2 import service_account
@@ -76,6 +78,15 @@ def Pocket_Option():
     st.write(df2)
 
 
-schedule.every(500).seconds.do(Pocket_Option)
+schedule.every(500).seconds.do(New_Data)
 
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+
+
+# for i to 1000:
+#     Pocket_Option()
+#     time.sleep(100)
+#     next i
 
