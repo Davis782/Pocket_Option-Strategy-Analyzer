@@ -91,6 +91,6 @@ def Pocket_Option(x):
 # components.html(source_code_2, height=700)
 
 # for x in range(1000):
-#   Pocket_Option(x)
-# #   time.sleep(1)
+  Pocket_Option()
+#   time.sleep(1)
 
