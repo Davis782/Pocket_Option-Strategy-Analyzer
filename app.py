@@ -47,31 +47,37 @@ This app retrieves the Currency Pair data and runs it against numerous Strategie
 
 st.sidebar.header('User Input Features')
 
-# Call the Sheets API
-sheet = service.spreadsheets()
-result1 = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                            range="df1!A1:O22").execute()
+def Pocket_Option()
 
-values1 = result1.get('values', [])
-#print(values1, 'These are the values')
-# st.write(values)
+    # Call the Sheets API
+    sheet = service.spreadsheets()
+    result1 = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                range="df1!A1:O22").execute()
 
-df1 = pd.DataFrame.from_records(values1)
-st.header('Display Currencies in Selected Sector Going Up')
-st.write(df1)
+    values1 = result1.get('values', [])
+    #print(values1, 'These are the values')
+    # st.write(values)
 
-# Call the Sheets API
-sheet2 = service.spreadsheets()
-result2 = sheet2.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                            range="df2!A1:O22").execute()
+    df1 = pd.DataFrame.from_records(values1)
+    st.header('Display Currencies in Selected Sector Going Up')
+    st.write(df1)
 
-values2 = result2.get('values', [])
-#print(values1, 'These are the values')
-# st.write(values)
+    # Call the Sheets API
+    sheet2 = service.spreadsheets()
+    result2 = sheet2.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                range="df2!A1:O22").execute()
 
-df2 = pd.DataFrame.from_records(values2)
-st.header('Display Currencies in Selected Sector Going Down')
-st.write(df2)
+    values2 = result2.get('values', [])
+    #print(values1, 'These are the values')
+    # st.write(values)
+
+    df2 = pd.DataFrame.from_records(values2)
+    st.header('Display Currencies in Selected Sector Going Down')
+    st.write(df2)
 
 
+schedule.every(500).seconds.do(Pocket_Option)
 
+while True:
+    schedule.run_pending()
+    time.sleep(1)
